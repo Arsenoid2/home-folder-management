@@ -27,7 +27,12 @@ This project implements a **semi-automated home folder management system** for A
 
 ## 🔗 Core Components
 
-### 1. 🏠 Home Folder Creation & Archiving
+### 1. 🔧 Storage Preparation (iSCSI-Based)
+
+To ensure native Windows quota enforcement via File Server Resource Manager (FSRM), an iSCSI LUN is created on the NAS and mapped to the AD server using the iSCSI Initiator. This LUN appears as a local internal disk (e.g., `H:`) and is used as the storage location for all home and archive folders and log files.
+
+
+### 2. 🏠 Home Folder Creation & Archiving
 
 - **Script**: `src/HomeFolderManager.ps1`
 - **Functionality**:
@@ -49,7 +54,7 @@ This project implements a **semi-automated home folder management system** for A
 
 ---
 
-### 2. 📦 Per-User Quota Enforcement
+### 3. 📦 Per-User Quota Enforcement
 
 - Uses **File Server Resource Manager (FSRM)** on the AD server
 - Enforces **5 GB quotas** on:
@@ -59,7 +64,7 @@ This project implements a **semi-automated home folder management system** for A
 
 ---
 
-### 3. 🔁 Drive Mapping via GPO
+### 4. 🔁 Drive Mapping via GPO
 
 - **Group Policy Preference (GPP)** maps:
   - `\\NAS\Home\%username%` → `N:` on user machine
